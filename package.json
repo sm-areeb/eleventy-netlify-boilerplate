@@ -3,8 +3,11 @@
   "version": "1.0.1",
   "description": "A boilerplate for building a fast static website with the Eleventy static site generator, for deployment to Netlify.",
   "scripts": {
-    "build": "npx eleventy",
-    "watch": "npx eleventy --watch",
+    "prebuild": "rimraf _site",
+    "build": "eleventy && node-sass _includes/assets/styles/pages -o _site/css/ --output-style compressed",
+    "watch:eleventy": "eleventy --watch --serve",
+    "watch:sass": "node-sass _includes/assets/styles/pages -o _site/css/ --output-style compressed -w",
+    "watch": "parallelshell \"npm run watch:sass\" \"npm run watch:eleventy\"",
     "debug": "DEBUG=* npx eleventy"
   },
   "repository": {
@@ -22,14 +25,17 @@
   },
   "homepage": "https://github.com/danurbanowicz/eleventy-netlify-boilerplate",
   "devDependencies": {
-    "@11ty/eleventy": "^0.8.2",
+    "@11ty/eleventy": "^0.8.3",
     "luxon": "^1.12.1",
     "markdown-it": "^8.4.2",
-    "markdown-it-anchor": "^5.0.2"
+    "markdown-it-anchor": "^5.0.2",
+    "parallelshell": "^3.0.1",
+    "rimraf": "^3.0.0"
   },
   "dependencies": {
     "clean-css": "^4.2.1",
     "html-minifier": "^4.0.0",
+    "node-sass": "^4.12.0",
     "uglify-es": "^3.3.9"
   }
 }
