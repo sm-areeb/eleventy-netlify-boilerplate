@@ -6,6 +6,11 @@ backend:
 # publish_mode: editorial_workflow
 
 media_folder: "static/img" # Media files will be stored in the repo under images/uploads
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: areeb
+    api_key: 587864218745862
 
 collections:
   # Our blog posts
