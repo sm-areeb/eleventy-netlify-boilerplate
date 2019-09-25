@@ -4,10 +4,11 @@
   "description": "A boilerplate for building a fast static website with the Eleventy static site generator, for deployment to Netlify.",
   "scripts": {
     "prebuild": "rimraf _site",
-    "build": "eleventy && node-sass _includes/assets/styles/pages -o _site/css/ --output-style compressed",
+    "build": "eleventy && node-sass _includes/assets/styles/pages -o _site/css/ --output-style compressed && rollup -c",
     "watch:eleventy": "eleventy --watch --serve",
     "watch:sass": "node-sass _includes/assets/styles/pages -o _site/css/ --output-style compressed -w",
-    "watch": "parallelshell \"npm run watch:sass\" \"npm run watch:eleventy\"",
+    "watch:rollup": "rollup -cw",
+    "watch": "parallelshell \"npm run watch:sass\" \"npm run watch:rollup\" \"npm run watch:eleventy\"",
     "debug": "DEBUG=* npx eleventy"
   },
   "repository": {
@@ -36,6 +37,8 @@
     "clean-css": "^4.2.1",
     "html-minifier": "^4.0.0",
     "node-sass": "^4.12.0",
+    "rollup": "^1.21.4",
+    "rollup-plugin-terser": "^5.1.2",
     "uglify-es": "^3.3.9"
   }
 }
